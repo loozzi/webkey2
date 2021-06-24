@@ -1,0 +1,11 @@
+{% if current_user.type == 'admin' %}
+{% extends 'admin/master.html' %}
+
+{% block body %}
+    <br>
+    <h1><a href="/duyet">Duyet nap tien</a></h1>
+{% endblock %}
+{% else %}
+<h1>Xin lỗi {{ current_user.username }}, bạn không phải là admin. </h1>
+<h2><a href="/">Quay lại.</a></h2>
+{% endif %}

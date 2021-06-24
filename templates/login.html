@@ -1,0 +1,90 @@
+{% extends 'navbar.html' %}
+
+{% block title %} Login {% endblock %}
+
+{% block body %}
+<br>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="list-group">
+                    <div class="list-group-item-warning">
+                        <center>
+                            <h2>Đăng Nhập</h2>
+                        </center>
+                    </div>
+                    <div class="list-group-item">
+                        {% if wr == 'false' %}
+                            <div class="alert alert-danger" role="alert">
+                              Sai tài khoản hoặc mật khẩu!!!
+                            </div>
+                        {% endif %}
+                        <form action="{{ url_for('login') }}" method="post">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <div class="form-floating">
+                                <input type="text" id="username" name="username" class="form-control" placeholder="Tài Khoản">
+                                <label for="username">Tài Khoản</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="password" id="password" name="password" class="form-control" placeholder="********">
+                                <label for="password">Mật Khẩu</label>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <center>
+                                    <input type="submit" value="Đăng Nhập Ngay!" class="btn btn-danger">
+                                </center>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="list-group">
+                    <div class="list-group-item-dark">
+                        <center>
+                            <h2>Đăng Ký</h2>
+                        </center>
+                    </div>
+                    <div class="list-group-item">
+                        {% if ct %}
+                            <div class="alert alert-danger" role="alert">
+                              {{ ct }}
+                            </div>
+                        {% endif %}
+                        <form action="{{ url_for('register') }}" method="post">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <div class="form-floating">
+                                <input type="email" name="email" class="form-control" placeholder="Email">
+                                <label for="Email">Email</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="text" name="username" class="form-control" placeholder="Tài Khoản">
+                                <label for="username">Tài Khoản</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="password" name="password" class="form-control" placeholder="********">
+                                <label for="password">Mật Khẩu</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="password" name="re-password" class="form-control" placeholder="********">
+                                <label for="re-password">Nhập Lại Mật Khẩu</label>
+                            </div>
+                            <div class="form-floating">
+                                <input type="text" name="ref-key" class="form-control" placeholder="Tài Khoản giới thiệu(nếu có)">
+                                <label for="ref-key">Tài Khoản giới thiệu (không bắt buộc).</label>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <center>
+                                    <input type="submit" value="Đăng Ký Ngay!" class="btn btn-danger">
+                                </center>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+{% endblock %}

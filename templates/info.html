@@ -1,0 +1,164 @@
+{% extends 'navbar.html' %}
+
+{% block title %}
+    Thông tin cá nhân
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="list-group">
+                    <div class="list-group-item active">
+                        <center>
+                            <b style="color: greenyellow">Thông tin</b>
+                        </center>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="list-group-flush">
+                            <div class="list-group-item">
+                                <div class="form-floating">
+                                    <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+                                    <input type="email" id="email" class="form-control" value="{{current_user.email}}" placeholder="Email (có thể để trống)">
+                                    <label for="email">Email (có thể bỏ trống)</label>
+                                </div>
+                            </div>
+                            <div class="list-group-item">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="username" disabled value="{{current_user.username}}">
+                                    <label for="username">Username</label>
+                                </div>
+                            </div>
+                            <div class="list-group-item">
+                                <div class="form-floating">
+                                    <input type="number" disabled id="sodu" class="form-control" value="{{current_user.coin}}">
+                                    <label for="sodu">Số dư tài khoản</label>
+                                </div>
+                            </div>
+                            <div class="list-group-item">
+                                <div class="form-floating">
+                                    <input type="number" id="dadung" disabled class="form-control" value="{{current_user.coin_used}}">
+                                    <label for="dadung">Số tiền đã dùng</label>
+                                </div>
+                            </div>
+                            <div class="list-group-item">
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="password" placeholder="Password">
+                                    <label for="password">Password</label>
+                                </div>
+                            </div>
+                            <div class="list-group-item">
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="re_password" placeholder="Password">
+                                    <label for="re_password">Password Mới (điền vào nếu muốn đổi)</label>
+                                </div>
+                            </div>
+                            <div class="list-group-item">
+                                <input type="button" value="Đổi thông tin!!" class="btn btn-dark" onclick="change_info()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="list-group">
+                    <div class="list-group-item active">
+                        <center>
+                            <b style="color: greenyellow">Lịch sử mua/nhận key</b>
+                        </center>
+                    </div>
+                    <div class="list-group-item">
+                        <table class="table">
+                            <thread>
+                                <tr>
+                                    <th scope="col">Key</th>
+                                    <th scope="col">Date Active</th>
+                                    <th scope="col">Giver</th>
+                                </tr>
+                            </thread>
+                            <tbody>
+
+                                {% for i in data[::-1] %}
+                                    <tr>
+                                        <td>{{i.key_value}}</td>
+                                        <td>{{i.date_active.strftime("%d/%m/%Y")}}</td>
+                                        <td>{{i.giver}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="col-lg-12">
+        <div class="list-group">
+            <div class="list-group-item active">
+                <center>
+                    <b style="color: greenyellow">Lịch Sử Nạp Tiền</b>
+                </center>
+            </div>
+            <div class="list-group-item">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Mệnh giá</th>
+                        <th scope="col">Nguồn Tiền</th>
+                        <th scope="col">Thời Gian Yêu Cầu</th>
+                        <th scope="col">Thời Gian Chấp Nhận</th>
+                        <th scope="col">Trạng Thái</th>
+                        <th scope="col">Ghi Chú</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for h in history_recharge[::-1] %}
+
+                            <tr {% if h.accepted == None %} class="table-light" {%  elif h.accepted == True %} class="table-success"{%else%}class="table-danger"{%endif%} >
+                                <td>{{ h.denominations }}</td>
+                                <td>{{h.service}}</td>
+                                <td>{{h.date_request}}</td>
+                                <td>{{h.date_accept}}</td>
+                                <td>{% if h.accepted == None %}Đang Xử Lí{%  elif h.accepted == True %}Chấp nhận{%else%}Không thành công{%endif%}</td>
+                                <td>{{h.notes}}</td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function change_info(){
+        if(document.getElementById('password').value.length == 0){
+            alert("Vui lòng nhập mật khẩu để xác nhận")
+        }
+        else {
+            var url = '/info';
+            var data = {
+                'email': document.getElementById('email').value,
+                'password': document.getElementById('password').value,
+                'new_password': document.getElementById('re_password').value,
+                'csrf_token': document.getElementById('csrf_token').value
+            };
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: data,
+                success: function (response) {
+                    if(alert(response['log'])){}
+                    else window.location.reload();
+                }
+            })
+            // location.reload()
+        }
+    }
+</script>
+
+{% endblock %}

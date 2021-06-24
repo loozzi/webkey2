@@ -1,0 +1,83 @@
+{% extends 'navbar.html' %}
+{% block title %} Nạp tiền {% endblock %}
+
+{% block body %}
+
+<br>
+<h2 style="color: darkred">Lưu ý: sai thông tin sẽ không được hỗ trợ, vui lòng nhập đúng thông tin theo yêu cầu<!doctype
+    html></h2>
+<div class="col-lg-12">
+    <div class="list-group">
+        <div class="list-group-item active">
+            <center>
+                <b style="color: greenyellow">Thông tin nạp tiền</b>
+            </center>
+        </div>
+        <div class="list-group-item">
+            <div class="list-group-flush">
+                <div class="list-group-item">
+                    <div class="form-floating">
+                        <input type="text" id="username" disabled class="form-control" value="{{current_user.username}}">
+                        <label for="username">Username</label>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <label for="selectService">Selected Service</label>
+                    <select name="select" id="selectService" class="form-select">
+                        <option value="MOMO">MOMO</option>
+                        <option value="ViettelPay">ViettelPay</option>
+                    </select>
+                </div>
+                <div class="list-group-item">
+                    <div class="form-floating">
+                        <input type="number" class="form-control" id="sotien" min="30000" minlength="5" placeholder="Số tiền (đồng) VD: 50000">
+                        <label for="sotien">Số tiền (đồng) VD: 50000</label>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <div class="form-floating">
+                        <input type="text" id="content" value="{{current_user.username + '_' + random_str}}" disabled class="form-control">
+                        <label for="" style="color: red;"><b>* Nội dung chuyển khoản.</b></label>
+                    </div>
+                </div>
+                <input type="hidden" name="csrf_token" id="csrf_token" value="{{csrf_token()}}">
+                <div class="list-group-item">
+                    <h6><b style="color: orangered">Vui lòng chuyển tiền vào số điện thoại <code style="color: red">0364250891</code> với nội dung và giá trị như trên, sau khi chuyển xong thì bạn bấm xác nhận và chờ admin kiểm tra rồi phê duyệt cho bạn. Thông báo xác nhận sẽ được gửi vào địa chỉ email trong thông tin của bạn (nếu có).</b></h6>
+                </div>
+                <div class="list-group-item">
+                    <center>
+                        <input type="button" class="btn btn-danger" value="Xác nhận" onclick="naptien()">
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function naptien(){
+        if(document.getElementById('sotien').value.length < 5){
+            alert("Vui lòng nhập lại giá trị tiền bạn muốn nạp...")
+        }
+        else {
+            var url = '/nap-tien';
+            var data = {
+                'service':document.getElementById('selectService').value,
+                'denominations':document.getElementById('sotien').value,
+                'content':document.getElementById('content').value,
+                'csrf_token': document.getElementById('csrf_token').value
+            };
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: data,
+                success: function (response) {
+                    if(alert(response['log'])){}
+                    else window.location.reload();
+                }
+            })
+        }
+    }
+</script>
+
+{% endblock %}
