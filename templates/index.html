@@ -1,228 +1,223 @@
-{% extends 'navbar.html' %}
-
-{% block title %} Home {% endblock %}
-
-{% block body %}
+{% extends 'navbar.html' %} {% block title %} Home {% endblock %} {% block body %}
 <!--    <h2>xin chao {{ current_user.username }}</h2>-->
 <!--&lt;!&ndash;    <a href="/logout">Logout!</a>&ndash;&gt;-->
-    <div class="col-lg-12">
-        <div class="alert alert-info">
-             <strong><marquee style="color:red;">Hiiiiiiiiiiiiiiiiiiiiiiii</marquee></strong>
+<div class="col-lg-12">
+    <div class="alert alert-info">
+        <strong><marquee style="color:red;">Hiiiiiiiiiiiiiiiiiiiiiiii</marquee></strong>
 
-        </div>
     </div>
+</div>
 
-    <div class="col-lg-12">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="panel panel-info">
-                    <div class="list-group">
-                        <div class=" list-group-item active">
-                            <center>
-                                <b style="color: greenyellow;">Thông Tin</b>
-                            </center>
-                        </div>
-                        <div class="list-group-item">
-                            <div class="list-group-flush">
-                                <div class="list-group-item">
-                                    <b style="color: black;">Username: </b>
-                                    <b style="color: red;">{{ current_user.username }}</b>
-                                </div>
-                                 <div class="list-group-item">
-                                    <b style="color: black;">Số dư: </b>
-                                    <b style="color: red;">{{ current_user.coin }} </b>đ
-                                 </div>
-                                <div class="list-group-item">
-                                    <b style="color: black;">Đã dùng: </b>
-                                    <b style="color: red;">{{ current_user.coin_used }} </b>đ
-                                </div>
-                                <div class="list-group-item">
-                                    <b style="color: black;">Chức năng: </b>
-                                    <b style="color: red;">{{ current_user.type }}</b>
-                                </div>
-                            </div>
-                        </div>
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-info">
+                <div class="list-group">
+                    <div class=" list-group-item active">
+                        <center>
+                            <b style="color: greenyellow;">Thông Tin</b>
+                        </center>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="panel panel-info">
-                    <div class="list-group">
-                        <div class=" list-group-item active">
-                            <center>
-                                <b style="color: greenyellow;">Dịch Vụ</b>
-                            </center>
-                        </div>
-                        <div class="list-group-item">
-<!--                            <form action="{{ url_for('buykey') }}", method="post">-->
-                                <div class="list-group-flush">
-                                    <div class="list-group-item">
-                                        <input type="text" id="mamay_buy" name="mamay" class="form-control" placeholder="Mã máy">
-                                    </div>
-                                    <div class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="form-check">
-                                                  <input class="form-check-input" type="radio" name="options" id="30k" value="30k">
-                                                  <label class="form-check-label" for="30k">
-                                                    30k/tháng/3 lần đổi key
-                                                  </label>
-                                                </div>
-                                                <div class="form-check">
-                                                  <input class="form-check-input" type="radio" name="options" id="40k" value="40k" checked>
-                                                  <label class="form-check-label" for="40k">
-                                                      40k/tháng/5 lần đổi key
-                                                  </label>
-                                                </div>
-                                                <div class="form-check">
-                                                  <input class="form-check-input" type="radio" name="options" id="50k" value="50k" checked>
-                                                  <label class="form-check-label" for="50k">
-                                                      50k/tháng/10 lần đổi key
-                                                  </label>
-                                                </div>
-                                            </div>
-                                            <input type="hidden"  name="csrf_token" value="{{ csrf_token() }}">
-                                            <div class="col-lg-6">
-                                                <br>
-                                                <input type="button" onclick="buy_key()" class="btn btn-warning float-right" value="Mua Ngay!">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-<!--                            </form>-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="col-lg-12">
-        <div class="row">
-            <div class="list-group">
-                <div class="list-group-item active">
-                    <center>
-                        <b style="color: greenyellow">Chức năng</b>
-                    </center>
-                </div>
-                <div class="list-group-item">
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="list-group">
-                                    <div class="list-group-item">
-                                        <center>
-                                            <b style="color: sienna">Check Key</b>
-                                        </center>
-                                    </div>
-                                    <div class="list-group-item">
-                                        <input type="hidden" name="csrf_token" id="csrf_token" value="{{ csrf_token() }}">
-                                        <div class="list-group-flush">
-                                            <div class="list-group-item">
-                                                <input type="text" class="form-control" id="mamay" name="mamay" placeholder="Mã máy cần check...">
-                                            </div>
-                                            <div class="list-group-item">
-                                                <center>
-                                                    <input type="button" onclick="check()" value="Check!!" class="btn btn-danger">
-                                                </center>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="list-group-item">
+                        <div class="list-group-flush">
+                            <div class="list-group-item">
+                                <b style="color: black;">Username: </b>
+                                <b style="color: red;">{{ current_user.username }}</b>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="list-group">
-                                    <div class="list-group-item">
-                                        <center>
-                                            <b style="color: sienna">Đổi Key</b>
-                                        </center>
-                                    </div>
-                                    <div class="list-group-item">
-                                        <div class="list-group list-group-flush">
-                                            <div class="list-group-item">
-                                                <input type="text" class="form-control" id="mamay_cu" placeholder="Mã máy cũ...">
-                                            </div>
-                                            <div class="list-group-item">
-                                                <input type="text" class="form-control" id="mamay_moi" placeholder="Mã máy mới...">
-                                            </div>
-                                            <div class="list-group-item">
-                                                <center>
-                                                    <input type="button" class="btn btn-warning" onclick="change_key()" value="Change Key">
-                                                </center>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="list-group-item">
+                                <b style="color: black;">Số dư: </b>
+                                <b style="color: red;">{{ current_user.coin }} </b>đ
                             </div>
-                            <div class="col-lg-6">
-                                <div class="list-group">
-                                    <div class="list-group-item">
-                                        <center>
-                                            <b style="color: sienna">Tặng Key</b>
-                                        </center>
-                                    </div>
-                                    <div class="list-group-item">
-                                        <div class="list-group-flush">
-                                            <div class="list-group-item">
-                                                <input type="text" class="form-control" id="key_original" placeholder="Mã máy của bạn...">
-                                            </div>
-                                            <div class="list-group-item">
-                                                <input type="text" class="form-control" id="key_receipt" placeholder="Mã máy cần kích hoạt...">
-                                            </div>
-                                            <div class="list-group-item">
-                                                <input type="text" class="form-control" id="username_receipt" placeholder="Username được nhận...">
-                                            </div>
-                                            <div class="list-group-item">
-                                                <center>
-                                                    <input type="button" class="btn btn-warning" onclick="transfer()" value="Tặng!!">
-                                                </center>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="list-group-item">
+                                <b style="color: black;">Đã dùng: </b>
+                                <b style="color: red;">{{ current_user.coin_used }} </b>đ
+                            </div>
+                            <div class="list-group-item">
+                                <b style="color: black;">Chức năng: </b>
+                                <b style="color: red;">{{ current_user.type }}</b>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-lg-6">
+            <div class="panel panel-info">
+                <div class="list-group">
+                    <div class=" list-group-item active">
+                        <center>
+                            <b style="color: greenyellow;">Dịch Vụ</b>
+                        </center>
+                    </div>
+                    <div class="list-group-item">
+                        <!--                            <form action="{{ url_for('buykey') }}", method="post">-->
+                        <div class="list-group-flush">
+                            <div class="list-group-item">
+                                <input type="text" id="mamay_buy" name="mamay" class="form-control" placeholder="Mã máy">
+                            </div>
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="options" id="12m" value="1m2">
+                                            <label class="form-check-label" for="1m2">
+                                                    1m2/tháng/3 lần đổi key
+                                                  </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="options" id="1m3" value="1m3" checked>
+                                            <label class="form-check-label" for="1m3">
+                                                      1m3/tháng/5 lần đổi key
+                                                  </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="options" id="1m5" value="1m5" checked>
+                                            <label class="form-check-label" for="1m5">
+                                                      1m5/tháng/10 lần đổi key
+                                                  </label>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <div class="col-lg-6">
+                                        <br>
+                                        <input type="button" onclick="buy_key()" class="btn btn-warning float-right" value="Mua Ngay!">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--                            </form>-->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+<br>
+<div class="col-lg-12">
+    <div class="row">
+        <div class="list-group">
+            <div class="list-group-item active">
+                <center>
+                    <b style="color: greenyellow">Chức năng</b>
+                </center>
+            </div>
+            <div class="list-group-item">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="list-group">
+                                <div class="list-group-item">
+                                    <center>
+                                        <b style="color: sienna">Check Key</b>
+                                    </center>
+                                </div>
+                                <div class="list-group-item">
+                                    <input type="hidden" name="csrf_token" id="csrf_token" value="{{ csrf_token() }}">
+                                    <div class="list-group-flush">
+                                        <div class="list-group-item">
+                                            <input type="text" class="form-control" id="mamay" name="mamay" placeholder="Mã máy cần check...">
+                                        </div>
+                                        <div class="list-group-item">
+                                            <center>
+                                                <input type="button" onclick="check()" value="Check!!" class="btn btn-danger">
+                                            </center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="list-group">
+                                <div class="list-group-item">
+                                    <center>
+                                        <b style="color: sienna">Đổi Key</b>
+                                    </center>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="list-group list-group-flush">
+                                        <div class="list-group-item">
+                                            <input type="text" class="form-control" id="mamay_cu" placeholder="Mã máy cũ...">
+                                        </div>
+                                        <div class="list-group-item">
+                                            <input type="text" class="form-control" id="mamay_moi" placeholder="Mã máy mới...">
+                                        </div>
+                                        <div class="list-group-item">
+                                            <center>
+                                                <input type="button" class="btn btn-warning" onclick="change_key()" value="Change Key">
+                                            </center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="list-group">
+                                <div class="list-group-item">
+                                    <center>
+                                        <b style="color: sienna">Tặng Key</b>
+                                    </center>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="list-group-flush">
+                                        <div class="list-group-item">
+                                            <input type="text" class="form-control" id="key_original" placeholder="Mã máy của bạn...">
+                                        </div>
+                                        <div class="list-group-item">
+                                            <input type="text" class="form-control" id="key_receipt" placeholder="Mã máy cần kích hoạt...">
+                                        </div>
+                                        <div class="list-group-item">
+                                            <input type="text" class="form-control" id="username_receipt" placeholder="Username được nhận...">
+                                        </div>
+                                        <div class="list-group-item">
+                                            <center>
+                                                <input type="button" class="btn btn-warning" onclick="transfer()" value="Tặng!!">
+                                            </center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
-    function check(){
+    function check() {
         var url = '/check';
-        var data = {'mamay':document.getElementById('mamay').value,
-                    'csrf_token':document.getElementById('csrf_token').value
+        var data = {
+            'mamay': document.getElementById('mamay').value,
+            'csrf_token': document.getElementById('csrf_token').value
         };
         $.ajax({
             url: url,
             method: "POST",
             data: data,
-            success : function(response){
-                if (response['log'] == "Thành công"){
+            success: function(response) {
+                if (response['log'] == "Thành công") {
                     var str = "";
                     var trangthai;
                     if (response['data']['status']) trangthai = "Còn hạn";
-                    else trangthai  = "Hết hạn";
+                    else trangthai = "Hết hạn";
                     str += "Mã máy: " + response['data']['key_value'];
                     str += "\nTrạng Thái: " + trangthai;
                     str += "\nNgày kích hoạt: " + response['data']['date_active'];
                     str += "\nNgày hết hạn: " + response['data']['date_expired'];
                     str += "\nSố lần đổi còn lại: " + response['data']['count'];
-                    if(alert(str)){}
-                    else location.reload();
-                }
-                else alert(response['log']);
+                    if (alert(str)) {} else location.reload();
+                } else alert(response['log']);
             }
         })
     }
 
     function buy_key() {
         // get options
-        if(document.getElementById('mamay_buy').value.length > 5){
+        if (document.getElementById('mamay_buy').value.length > 5) {
             var opt = "";
             if (document.getElementsByName('options')[0].checked) opt = document.getElementsByName('options')[0].value;
             else if (document.getElementsByName('options')[1].checked) opt = document.getElementsByName('options')[1].value;
@@ -238,9 +233,8 @@
                 url: url,
                 method: "POST",
                 data: data,
-                success: function (response) {
-                    if(alert(response['log'])){}
-                    else location.reload();
+                success: function(response) {
+                    if (alert(response['log'])) {} else location.reload();
                 }
             })
         } else {
@@ -248,26 +242,25 @@
         }
     }
 
-    function change_key(){
+    function change_key() {
         var url = '/change';
-        if(document.getElementById('mamay_cu').value == document.getElementById('mamay_moi').value)
+        if (document.getElementById('mamay_cu').value == document.getElementById('mamay_moi').value)
             alert("Mã máy giống nhau kìa!!!!");
-        else{
-            var data = {'mamay_cu':document.getElementById('mamay_cu').value,
-                        'mamay_moi':document.getElementById('mamay_moi').value,
-                        'csrf_token':document.getElementById('csrf_token').value
+        else {
+            var data = {
+                'mamay_cu': document.getElementById('mamay_cu').value,
+                'mamay_moi': document.getElementById('mamay_moi').value,
+                'csrf_token': document.getElementById('csrf_token').value
             };
             $.ajax({
                 url: url,
                 method: "POST",
                 data: data,
-                success : function(response){
-                    if (response['log'] == "Success"){
+                success: function(response) {
+                    if (response['log'] == "Success") {
                         var str = "Success!!!!\nSố lần còn lại là: " + response["remain"].toString();
-                        if (alert(str)){}
-                        else location.reload();
-                    }
-                    else
+                        if (alert(str)) {} else location.reload();
+                    } else
                         alert(response['log']);
                 }
             })
@@ -275,7 +268,7 @@
         // location.reload()
     }
 
-    function transfer(){
+    function transfer() {
         if (document.getElementById('key_original').value == document.getElementById('key_receipt').value)
             alert("Mã máy trùng nhau kìa!!!!")
         else {
@@ -290,7 +283,7 @@
                 url: url,
                 method: "POST",
                 data: data,
-                success: function (response) {
+                success: function(response) {
                     if (response['log'] == "Success") {
                         var str = "Success!!!!\nSố lần còn lại là: " + response["remain"].toString();
                         alert(str);

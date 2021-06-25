@@ -1,4 +1,4 @@
-{% if current_user.type == 'admin' %}
+{% if current_user.type == 'admin' or current_user.type == 'kdv' %}
 
 {% extends 'navbar.html' %}
 {% block body %}

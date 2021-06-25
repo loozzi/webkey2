@@ -249,7 +249,7 @@ def buykey():
         key_machine = request.form.get('mamay', '').strip()
         option = request.form.get('options')
 
-        if current_user.coin >= int(option[0:2]) * 1000:
+        if current_user.coin >= int(option[0] + option[2]) * 100000:
             check_key = ListKey.query.filter(ListKey.user_id == current_user.id, ListKey.key_value == key_machine).first()
             if not check_key:
                 try:
@@ -258,14 +258,17 @@ def buykey():
                     k.key_value = key_machine
                     k.date_active = datetime.now()
                     k.date_expired = datetime.now() + timedelta(days=30)
-                    if option == '30k':
+                    if option == '1m2':
                         k.change_limit = 3
-                    elif option == '40k':
+                        tien = 1200000
+                    elif option == '1m3':
                         k.change_limit = 5
+                        tien = 1300000
                     else:
                         k.change_limit = 10
-                    current_user.coin -= int(option[0:2])*1000
-                    current_user.coin_used += int(option[0:2])*1000
+                        tien = 1500000
+                    current_user.coin -= int(option[0] + option[2]) * 100000
+                    current_user.coin_used += int(option[0] + option[2]) * 100000
                     db.session.add(k)
                     db.session.commit()
                     return jsonify({"log": "Kích hoạt mã máy thành công!"})
@@ -277,14 +280,17 @@ def buykey():
                 k.date_expired += timedelta(days=30)
                 if k.date_expired > datetime.now():
                     k.is_active = True
-                if option == '30k':
+                if option == '1m2':
                     k.change_limit += 3
-                elif option == '40k':
+                    tien = 1200000
+                elif option == '1m3':
                     k.change_limit += 5
+                    tiem = 1300000
                 else:
                     k.change_limit += 10
-                current_user.coin -= int(option[0:2]) * 1000
-                current_user.coin_used += int(option[0:2]) * 1000
+                    tien = 1500000
+                current_user.coin -= tien
+                current_user.coin_used += tien
                 db.session.commit()
                 return jsonify({"log": "Gia hạn thành công!"})
         else:
